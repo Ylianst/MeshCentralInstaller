@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{14404E31-A185-4CD8-8DC3-6A2F5FE216FF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MeshCentralInstaller</RootNamespace>
+    <AssemblyName>MeshCentralInstaller</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>MeshCentralInstaller.Program</StartupObject>
+    <ApplicationIcon>MeshServer.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FirewallSetup.cs" />
+    <Compile Include="InteropSHFileOperation32.cs" />
+    <Compile Include="InteropSHFileOperation64.cs" />
+    <Compile Include="ConfigEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigEditorForm.Designer.cs">
+      <DependentUpon>ConfigEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelpServerModeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelpServerModeForm.Designer.cs">
+      <DependentUpon>HelpServerModeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelpFeaturesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelpFeaturesForm.Designer.cs">
+      <DependentUpon>HelpFeaturesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelpDiscoveryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelpDiscoveryForm.Designer.cs">
+      <DependentUpon>HelpDiscoveryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelpEmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelpEmailForm.Designer.cs">
+      <DependentUpon>HelpEmailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelpNewAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelpNewAccountForm.Designer.cs">
+      <DependentUpon>HelpNewAccountForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelpWebSiteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelpWebSiteForm.Designer.cs">
+      <DependentUpon>HelpWebSiteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MeshDiscovery.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ServerInfoForm.Designer.cs">
+      <DependentUpon>ServerInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ServerUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ServerUserControl.Designer.cs">
+      <DependentUpon>ServerUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Win32Api.cs" />
+    <EmbeddedResource Include="ConfigEditorForm.resx">
+      <DependentUpon>ConfigEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelpServerModeForm.resx">
+      <DependentUpon>HelpServerModeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelpFeaturesForm.resx">
+      <DependentUpon>HelpFeaturesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelpDiscoveryForm.resx">
+      <DependentUpon>HelpDiscoveryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelpEmailForm.resx">
+      <DependentUpon>HelpEmailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelpNewAccountForm.resx">
+      <DependentUpon>HelpNewAccountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelpWebSiteForm.resx">
+      <DependentUpon>HelpWebSiteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServerInfoForm.resx">
+      <DependentUpon>ServerInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServerUserControl.resx">
+      <DependentUpon>ServerUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="warning-small.png" />
+    <None Include="MeshServerLogo.png" />
+    <None Include="MigrationLogo.png" />
+    <None Include="MC2-Banner.png" />
+    <None Include="Empty-Banner.png" />
+    <None Include="MC2-Logo.png" />
+    <None Include="MeshCentral.png" />
+    <None Include="Help20.png" />
+    <None Include="HelpImages\WebSite1Help.png" />
+    <None Include="HelpImages\NewAccount1Help.png" />
+    <None Include="HelpImages\NewAccount2Help.png" />
+    <None Include="HelpImages\MeshCentralDiscovery.png" />
+    <None Include="HelpImages\HybridMode.png" />
+    <None Include="HelpImages\InternetMode.png" />
+    <None Include="HelpImages\LANMode.png" />
+    <Content Include="MeshServer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="NetFwTypeLib">
+      <Guid>{58FBCF7C-E7A9-467C-80B3-FC65E8FCCA08}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
