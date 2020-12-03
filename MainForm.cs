@@ -547,7 +547,27 @@ namespace MeshCentralInstaller
         {
             displayMessage("Checking MeshCentral installation...", 0);
             DirectoryInfo dir = new DirectoryInfo(ServerInstallPath);
-            if (Directory.Exists(dir.FullName) == false) { Directory.CreateDirectory(dir.FullName); }
+            if (Directory.Exists(dir.FullName) == false) {
+                DirectorySecurity xrestrictedPermissions = null;
+                try
+                {
+                    // Setup special folder restricted permissions
+                    xrestrictedPermissions = new DirectorySecurity(ServerInstallPath, AccessControlSections.All);
+                    xrestrictedPermissions.SetAccessRuleProtection(true, false);
+                    xrestrictedPermissions.AddAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+                    xrestrictedPermissions.AddAccessRule(new FileSystemAccessRule("SYSTEM", FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+                }
+                catch (Exception) { }
+
+                try
+                {
+                    Directory.CreateDirectory(dir.FullName, xrestrictedPermissions);
+                }
+                catch (Exception)
+                {
+                    Directory.CreateDirectory(dir.FullName);
+                }
+            }
 
             // Install firewall rules
             displayMessage("Firewall Setup...", 0, "Adding firewall rules.");
@@ -706,8 +726,7 @@ namespace MeshCentralInstaller
                 try
                 {
                     Directory.CreateDirectory(Path.Combine(ServerInstallPath, "winservice"), restrictedPermissions);
-                } catch (Exception)
-                {
+                } catch (Exception) {
                     Directory.CreateDirectory(Path.Combine(ServerInstallPath, "winservice"));
                 }
                 File.Copy(Path.Combine(ServerInstallPath, "node_modules\\meshcentral\\winservice.js"), Path.Combine(ServerInstallPath, "winservice\\winservice.js"), true);
@@ -1166,7 +1185,27 @@ namespace MeshCentralInstaller
 
                 Process process;
                 DirectoryInfo dir = new DirectoryInfo(ServerInstallPath);
-                if (Directory.Exists(dir.FullName) == false) { Directory.CreateDirectory(dir.FullName); }
+                if (Directory.Exists(dir.FullName) == false) {
+                    DirectorySecurity xrestrictedPermissions = null;
+                    try
+                    {
+                        // Setup special folder restricted permissions
+                        xrestrictedPermissions = new DirectorySecurity(ServerInstallPath, AccessControlSections.All);
+                        xrestrictedPermissions.SetAccessRuleProtection(true, false);
+                        xrestrictedPermissions.AddAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+                        xrestrictedPermissions.AddAccessRule(new FileSystemAccessRule("SYSTEM", FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+                    }
+                    catch (Exception) { }
+
+                    try
+                    {
+                        Directory.CreateDirectory(dir.FullName, xrestrictedPermissions);
+                    }
+                    catch (Exception)
+                    {
+                        Directory.CreateDirectory(dir.FullName);
+                    }
+                }
 
                 // Configure the HTTP proxy if needed
                 Uri x = new Uri(nodeUrl64);
