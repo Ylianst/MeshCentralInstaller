@@ -146,6 +146,7 @@
     <Compile Include="ServerUserControl.Designer.cs">
       <DependentUpon>ServerUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Translate.cs" />
     <Compile Include="Win32Api.cs" />
     <EmbeddedResource Include="ConfigEditorForm.resx">
       <DependentUpon>ConfigEditorForm.cs</DependentUpon>

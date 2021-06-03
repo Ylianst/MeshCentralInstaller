@@ -81,9 +81,9 @@ namespace MeshCentralInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Empty_Banner {
+        internal static System.Drawing.Bitmap EmptyBanner {
             get {
-                object obj = ResourceManager.GetObject("Empty-Banner", resourceCulture);
+                object obj = ResourceManager.GetObject("EmptyBanner", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -131,9 +131,9 @@ namespace MeshCentralInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MC2_Banner {
+        internal static System.Drawing.Bitmap MC2Banner {
             get {
-                object obj = ResourceManager.GetObject("MC2-Banner", resourceCulture);
+                object obj = ResourceManager.GetObject("MC2Banner", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -141,9 +141,9 @@ namespace MeshCentralInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MC2_Logo {
+        internal static System.Drawing.Bitmap MC2Logo {
             get {
-                object obj = ResourceManager.GetObject("MC2-Logo", resourceCulture);
+                object obj = ResourceManager.GetObject("MC2Logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -174,16 +174,6 @@ namespace MeshCentralInstaller.Properties {
         internal static System.Drawing.Bitmap MeshServerLogo {
             get {
                 object obj = ResourceManager.GetObject("MeshServerLogo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap MigrationLogo {
-            get {
-                object obj = ResourceManager.GetObject("MigrationLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -229,9 +219,9 @@ namespace MeshCentralInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap warning_small {
+        internal static System.Drawing.Bitmap WarningSmall {
             get {
-                object obj = ResourceManager.GetObject("warning-small", resourceCulture);
+                object obj = ResourceManager.GetObject("WarningSmall", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

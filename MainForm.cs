@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2009-2017 Intel Corporation
+Copyright 2009-2021 Intel Corporation
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -73,6 +73,7 @@ namespace MeshCentralInstaller
         {
             this.args = args;
             InitializeComponent();
+            Translate.TranslateControl(this);
             mainPanel.Controls.Add(panel1);
             mainPanel.Controls.Add(panel2);
             mainPanel.Controls.Add(panel3);
