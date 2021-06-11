@@ -2074,7 +2074,7 @@
     <value>91, 76</value>
   </data>
   <data name="noServerFoundLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>258, 40</value>
+    <value>254, 36</value>
   </data>
   <data name="noServerFoundLabel.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>

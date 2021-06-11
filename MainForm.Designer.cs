@@ -330,7 +330,7 @@
             // pictureBox2
             // 
             resources.ApplyResources(this.pictureBox2, "pictureBox2");
-            this.pictureBox2.Image = global::MeshCentralInstaller.Properties.Resources.MC2Logo;
+            this.pictureBox2.Image = global::MeshCentralInstaller.Properties.Resources.MeshServerLogo;
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
             // 

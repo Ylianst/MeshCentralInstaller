@@ -65,7 +65,7 @@
             // 
             // serverPictureBox
             // 
-            this.serverPictureBox.Image = global::MeshCentralInstaller.Properties.Resources.MeshCentral;
+            this.serverPictureBox.Image = global::MeshCentralInstaller.Properties.Resources.MeshServerLogo;
             this.serverPictureBox.Location = new System.Drawing.Point(0, 0);
             this.serverPictureBox.Name = "serverPictureBox";
             this.serverPictureBox.Size = new System.Drawing.Size(59, 59);
