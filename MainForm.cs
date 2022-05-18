@@ -42,20 +42,20 @@ namespace MeshCentralInstaller
         private Version currentNodeVersion = null;
         private string windowsTempPath = Path.GetTempPath();
         private bool logging = false;
-        private string g_optionalModules = "archiver@4.0.2 acme-client node-windows@0.1.14 node-sspi ldapauth-fork nodemailer mongodb image-size ldapauth-fork node-rdpjs-2 archiver-zip-encrypted yubikeyotp otplib@10.2.3 googleapis ssh2";
+        private string g_optionalModules = "archiver@5.3.1 acme-client node-windows@0.1.14 node-sspi ldapauth-fork nodemailer mongodb image-size ldapauth-fork node-rdpjs-2 archiver-zip-encrypted yubikeyotp otplib@10.2.3 googleapis ssh2";
 
         // NodeJS version
-        public const string nodeVersion = "12.16.2";
+        public const string nodeVersion = "14.17.1";
 
         // 64 bit
         public const string nodeUrl64 = "https://nodejs.org/dist/v" + nodeVersion + "/node-v" + nodeVersion + "-x64.msi";
         public const string nodeFile64 = "node-v" + nodeVersion + "-x64.msi";
-        public const string nodeHash64 = "dc9677d1ec4a284f64c35e614268c50cdcb09bb8e7e00902c03765d3dc62e1f403c5bace9f8e359b3c277d71bccf3714";
+        public const string nodeHash64 = "73a728aac609edab11abac30587469723d9a45f5691bd47619ac62d123c9405a69a2f7d7a2f41884a16499eb75a03244";
 
         // 32 bit
         public const string nodeUrl32 = "https://nodejs.org/dist/v" + nodeVersion + "/node-v" + nodeVersion + "-x86.msi";
         public const string nodeFile32 = "node-v" + nodeVersion + "-x86.msi";
-        public const string nodeHash32 = "95d8d5b63e23db7364139128aa6c252a28bd2a394250c83c1fd9852615c4ba17446cc7901af145fca0ce449a26c7a3d6";
+        public const string nodeHash32 = "52e9c01b8530240c685b2ad93a59791f68339e47cc6cdbf14e0931dea2985dfb50b1e9ff2a4c974c4ecea6e5762e0457";
 
         // Installation Settings
         string[] args;
@@ -419,22 +419,26 @@ namespace MeshCentralInstaller
                 // Check if NodeJS is installed
                 displayMessage("Checking NodeJS installation...");
                 currentNodeVersion = GetCurrentNodeVersion();
+                if (currentNodeVersion != null) { log("currentNodeVersion: " + currentNodeVersion); } else { log("currentNodeVersion: none"); }
 
                 // Check if current version is to old
-                if ((currentNodeVersion != null) && (currentNodeVersion < new Version("6.0.0"))) { displayMessage("Installed NodeJS is too old.", 2, "Uninstall the currently installed NodeJS and try again."); return; }
+                if ((currentNodeVersion != null) && (currentNodeVersion < new Version("10.0.0"))) { displayMessage("Installed NodeJS is too old.", 2, "Uninstall the currently installed NodeJS and try again."); return; }
 
                 // Check if we need to install NodeJS
                 if (currentNodeVersion != null) {
+                    log("Skipping NodeJS installation.");
                     performInstallation3(); // Skip NodeJS installation
                 } else {
                     // NodeJS is not installed, check what OS we are on
                     if (Environment.Is64BitOperatingSystem) {
                         // 64bit OS
+                        log("Setting NodeJS 64bit.");
                         nodeUrl = nodeUrl64;
                         nodeFile = nodeFile64;
                         nodeHash = nodeHash64;
                     } else {
                         // 32bit OS
+                        log("Setting NodeJS 32bit.");
                         nodeUrl = nodeUrl32;
                         nodeFile = nodeFile32;
                         nodeHash = nodeHash32;
@@ -446,9 +450,11 @@ namespace MeshCentralInstaller
                     // Check if we already have the NodeJS MSI downloaded
                     if ((File.Exists(nodeJsFullPath) == true) && (CalculateSHA384(nodeJsFullPath) == nodeHash)) {
                         // We have it alreadys, use that.
+                        log("We already have the NodeJS install file, use that.");
                         performInstallation2();
                     } else {
                         // We don't have it, download it.
+                        log("Downloading NodeJS from: " + nodeUrl);
                         WebClient Client = new WebClient();
                         Client.DownloadProgressChanged += Client_DownloadProgressChanged;
                         Client.DownloadFileCompleted += Client_DownloadFileCompleted;
@@ -465,17 +471,33 @@ namespace MeshCentralInstaller
             string nodeJsFullPath = Path.Combine(windowsTempPath, nodeFile);
             if (e.Error != null)
             {
+                log("NodeJS download error: " + e.ToString());
                 try { if (File.Exists(nodeJsFullPath)) { File.Delete(nodeJsFullPath); } } catch (Exception) { }
-                displayMessage("Download Error", 2, e.Error.Message);
+                displayMessage("Download Error, please install NodeJS manually.", 2, e.Error.Message);
+                if (e.Error != null) {
+                    if (e.Error.Message != null) { log("Exception Message: " + e.Error.Message); }
+                    if (e.Error.Source != null) { log("Exception Source: " + e.Error.Source); }
+                    if (e.Error.StackTrace != null) { log("Exception StackTrace: " + e.Error.StackTrace); }
+                    if (e.Error.InnerException != null)
+                    {
+                        if (e.Error.InnerException.Message != null) { log("InnerException Message: " + e.Error.InnerException.Message); }
+                        if (e.Error.InnerException.Source != null) { log("InnerException Source: " + e.Error.InnerException.Source); }
+                        if (e.Error.InnerException.StackTrace != null) { log("InnerException StackTrace: " + e.Error.InnerException.StackTrace); }
+                    }
+                }
                 workerThread = null;
             }
             else
             {
                 // Download of NodeJS compelted, check the hash
                 displayMessage("Checking NodeJS hash...", 0, "", 0);
-                if (CalculateSHA384(nodeJsFullPath) == nodeHash)
+                string filehash = CalculateSHA384(nodeJsFullPath);
+                log("NodeJS file hash: " + filehash);
+                log("NodeJS expected hash: " + nodeHash);
+                if (filehash == nodeHash)
                 {
                     // File is good, use it
+                    log("NodeJS file is good.");
                     performInstallation2();
                 }
                 else
@@ -939,6 +961,7 @@ namespace MeshCentralInstaller
             serverNameTextBox.Enabled = (serverModeComboBox.SelectedIndex > 0);
             string[] nameArray = serverNameTextBox.Text.Split('.');
             bool ok = ((serverModeComboBox.SelectedIndex == 0) || ((serverNameTextBox.Text.Length > 0) && (nameArray.Length > 1) && (nameArray[0].Length > 0) && (nameArray[1].Length > 0)));
+            if ((serverNameTextBox.Text.IndexOf(":") >= 0) || (serverNameTextBox.Text.IndexOf("/") >= 0) || (serverNameTextBox.Text.IndexOf("@") >= 0)) { ok = false; }
             if (ok == false) { serverNameTextBox.BackColor = System.Drawing.Color.MistyRose; } else { serverNameTextBox.BackColor = windowColor; }
             nextButton2.Enabled = ok;
             serverNameWarnLabel.Visible = (serverModeComboBox.SelectedIndex != 0);
