@@ -42,7 +42,7 @@ namespace MeshCentralInstaller
         private Version currentNodeVersion = null;
         private string windowsTempPath = Path.GetTempPath();
         private bool logging = false;
-        private string g_optionalModules = "archiver@5.3.1 acme-client node-windows@0.1.14 node-sspi ldapauth-fork nodemailer mongodb image-size ldapauth-fork node-rdpjs-2 archiver-zip-encrypted yubikeyotp otplib@10.2.3 googleapis ssh2";
+        private string g_optionalModules = "archiver@5.3.1 acme-client@4.2.5 node-windows@0.1.4 node-sspi ldapauth-fork nodemailer mongodb image-size ldapauth-fork node-rdpjs-2 archiver-zip-encrypted yubikeyotp otplib@10.2.3 googleapis ssh2 svg-captcha";
 
         // NodeJS version
         public const string nodeVersion = "14.17.1";
@@ -658,7 +658,7 @@ namespace MeshCentralInstaller
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.FileName = @"C:\Program Files\nodejs\npm.cmd";
-            process.StartInfo.Arguments = "install meshcentral";
+            process.StartInfo.Arguments = "install --no-package-lock meshcentral";
             process.StartInfo.WorkingDirectory = dir.FullName;
             startSuccess = false;
             log("Launching: " + process.StartInfo.FileName + " " + process.StartInfo.Arguments);
@@ -849,7 +849,7 @@ namespace MeshCentralInstaller
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.FileName = @"C:\Program Files\nodejs\npm.cmd";
-            process.StartInfo.Arguments = "install --no-optional --save " + modulename;
+            process.StartInfo.Arguments = "install --no-package-lock --no-optional --save " + modulename;
             process.StartInfo.WorkingDirectory = dir.FullName;
             startSuccess = false;
             log("Launching: " + process.StartInfo.FileName + " " + process.StartInfo.Arguments);
@@ -1420,7 +1420,7 @@ namespace MeshCentralInstaller
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardInput = true;
                 process.StartInfo.FileName = @"C:\Program Files\nodejs\npm.cmd";
-                process.StartInfo.Arguments = "install meshcentral";
+                process.StartInfo.Arguments = "install --no-package-lock meshcentral";
                 process.StartInfo.WorkingDirectory = dir.FullName;
                 bool startSuccess = false;
                 log("Launching: " + process.StartInfo.FileName + " " + process.StartInfo.Arguments);
