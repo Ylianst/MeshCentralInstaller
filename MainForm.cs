@@ -42,7 +42,7 @@ namespace MeshCentralInstaller
         private Version currentNodeVersion = null;
         private string windowsTempPath = Path.GetTempPath();
         private bool logging = false;
-        private string g_optionalModules = "archiver@5.3.1 acme-client@4.2.5 node-windows@0.1.4 node-sspi ldapauth-fork nodemailer mongodb image-size ldapauth-fork node-rdpjs-2 archiver-zip-encrypted yubikeyotp otplib@10.2.3 googleapis ssh2 svg-captcha";
+        private string g_optionalModules = "archiver@5.3.1 acme-client@4.2.5 node-windows@0.1.4 node-sspi ldapauth-fork nodemailer mongodb@4.9.1 image-size ldapauth-fork node-rdpjs-2 archiver-zip-encrypted yubikeyotp otplib@10.2.3 googleapis ssh2 svg-captcha";
 
         // NodeJS version
         public const string nodeVersion = "14.17.1";
