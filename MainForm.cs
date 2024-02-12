@@ -42,20 +42,20 @@ namespace MeshCentralInstaller
         private Version currentNodeVersion = null;
         private string windowsTempPath = Path.GetTempPath();
         private bool logging = false;
-        private string g_optionalModules = "archiver@5.3.1 acme-client@4.2.5 node-windows@0.1.4 node-sspi ldapauth-fork nodemailer mongodb@4.9.1 image-size ldapauth-fork node-rdpjs-2 archiver-zip-encrypted yubikeyotp otplib@10.2.3 googleapis ssh2 svg-captcha";
+        private string g_optionalModules = "node-windows@0.1.14 loadavg-windows@1.1.1";
 
         // NodeJS version
-        public const string nodeVersion = "14.17.1";
+        public const string nodeVersion = "18.19.0";
 
         // 64 bit
         public const string nodeUrl64 = "https://nodejs.org/dist/v" + nodeVersion + "/node-v" + nodeVersion + "-x64.msi";
         public const string nodeFile64 = "node-v" + nodeVersion + "-x64.msi";
-        public const string nodeHash64 = "73a728aac609edab11abac30587469723d9a45f5691bd47619ac62d123c9405a69a2f7d7a2f41884a16499eb75a03244";
+        public const string nodeHash64 = "f0aa130f347eea7092e4f70cca3b362b51a3c6dba8211f7d755529cae8f8978bd9c7f272f0db9624ee0bb1d6636b893b";
 
         // 32 bit
         public const string nodeUrl32 = "https://nodejs.org/dist/v" + nodeVersion + "/node-v" + nodeVersion + "-x86.msi";
         public const string nodeFile32 = "node-v" + nodeVersion + "-x86.msi";
-        public const string nodeHash32 = "52e9c01b8530240c685b2ad93a59791f68339e47cc6cdbf14e0931dea2985dfb50b1e9ff2a4c974c4ecea6e5762e0457";
+        public const string nodeHash32 = "ea489295f9e22c790e27e6e360e71f042b4f565244bf20b9c2a34925d3d1c87861fd580668bc0c6e5fe3cc88124c3b93";
 
         // Installation Settings
         string[] args;
