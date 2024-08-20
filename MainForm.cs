@@ -669,7 +669,7 @@ namespace MeshCentralInstaller
             process.BeginErrorReadLine();
             process.OutputDataReceived += Process_OutputDataReceived;
             process.ErrorDataReceived += Process_ErrorDataReceived;
-            if (process.WaitForExit(120000) == false) { try { process.Kill(); } catch (Exception) { } displayMessage("Unable to install MeshCentral, install process did not exit.", 2); workerThread = null; return; }
+            if (process.WaitForExit(300000) == false) { try { process.Kill(); } catch (Exception) { } displayMessage("Unable to install MeshCentral, install process did not exit.", 2); workerThread = null; return; }
 
             // Check that node_modules folder was created
             DirectoryInfo modulesdir = new DirectoryInfo(Path.Combine(ServerInstallPath, "node_modules"));
@@ -793,6 +793,67 @@ namespace MeshCentralInstaller
 
             // Check for errors, stop if there are any
             if (allOutput.IndexOf("ERROR:") >= 0) { displayMessage("Can't install MeshCentral Service (#3).", 2, allOutput); return; }
+
+            // Waiting 30 seconds before continuing to fix an winsw install bug
+            log("Waiting 30 seconds before continuing to fix an winsw install bug.");
+            displayMessage("Waiting 30 seconds", 2, "This fixes a bug with the WinSW executable");
+            System.Threading.Thread.Sleep(30000);
+
+            // We need to start the service again just incase it didnt actually start the first time around
+            displayMessage("Starting MeshCentral Service...", 0, "This may take several minutes.");
+
+            if (File.Exists(Path.Combine(ServerInstallPath, "node_modules\\meshcentral\\winservice.js")) == true)
+            {
+                // Copy winservice.js in a seperate folder
+                try
+                {
+                    Directory.CreateDirectory(Path.Combine(ServerInstallPath, "winservice"), restrictedPermissions);
+                }
+                catch (Exception)
+                {
+                    Directory.CreateDirectory(Path.Combine(ServerInstallPath, "winservice"));
+                }
+                File.Copy(Path.Combine(ServerInstallPath, "node_modules\\meshcentral\\winservice.js"), Path.Combine(ServerInstallPath, "winservice\\winservice.js"), true);
+
+                // start the service
+                process = new Process();
+                process.StartInfo.FileName = "C:\\Program Files\\nodejs\\node.exe";
+                process.StartInfo.Arguments = "\"" + Path.Combine(ServerInstallPath, "winservice\\winservice.js") + "\" --start";
+                process.StartInfo.WorkingDirectory = Path.Combine(ServerInstallPath, "node_modules");
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+            }
+            else
+            {
+                // Install and start the service
+                process = new Process();
+                process.StartInfo.FileName = "C:\\Program Files\\nodejs\\node.exe";
+                process.StartInfo.Arguments = "\"" + Path.Combine(ServerInstallPath, "node_modules\\meshcentral\\meshcentral.js") + "\" --start";
+                process.StartInfo.WorkingDirectory = Path.Combine(ServerInstallPath, "node_modules");
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+            }
+
+            // Launch the startup process
+            startSuccess = false;
+            log("Launching: " + process.StartInfo.FileName + " " + process.StartInfo.Arguments);
+            try { startSuccess = process.Start(); } catch (Exception e) { displayMessage("Exception Error", 2, e.ToString()); }
+            if (startSuccess == false) { displayMessage("Can't start MeshCentral Service (#1).", 2); workerThread = null; return; }
+            allOutput = "";
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            process.OutputDataReceived += Process_OutputDataReceived;
+            process.ErrorDataReceived += Process_ErrorDataReceived;
+            if (process.WaitForExit(60000) == false) { try { process.Kill(); } catch (Exception) { } displayMessage("Can't start MeshCentral Service (#2).", 2); workerThread = null; return; }
+
+            // Check for errors, stop if there are any
+            if (allOutput.IndexOf("ERROR:") >= 0) { displayMessage("Can't start MeshCentral Service (#3).", 2, allOutput); return; }
 
             // Start looking at the server state
             ServerState s = new ServerState();
