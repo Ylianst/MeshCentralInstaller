@@ -45,17 +45,17 @@ namespace MeshCentralInstaller
         private string g_optionalModules = "node-windows@0.1.14 loadavg-windows@1.1.1";
 
         // NodeJS version
-        public const string nodeVersion = "18.19.0";
+        public const string nodeVersion = "22.19.0";
 
         // 64 bit
         public const string nodeUrl64 = "https://nodejs.org/dist/v" + nodeVersion + "/node-v" + nodeVersion + "-x64.msi";
         public const string nodeFile64 = "node-v" + nodeVersion + "-x64.msi";
-        public const string nodeHash64 = "f0aa130f347eea7092e4f70cca3b362b51a3c6dba8211f7d755529cae8f8978bd9c7f272f0db9624ee0bb1d6636b893b";
+        public const string nodeHash64 = "e1139a6b8b14fe4aaabd1462bf4978cde68dbf62f44e7a94cdfdfabcaeb735ba28395c304428d3ac42a11f2670398899";
 
         // 32 bit
         public const string nodeUrl32 = "https://nodejs.org/dist/v" + nodeVersion + "/node-v" + nodeVersion + "-x86.msi";
         public const string nodeFile32 = "node-v" + nodeVersion + "-x86.msi";
-        public const string nodeHash32 = "ea489295f9e22c790e27e6e360e71f042b4f565244bf20b9c2a34925d3d1c87861fd580668bc0c6e5fe3cc88124c3b93";
+        public const string nodeHash32 = "dc02ef6bffb5abad2ef2da0d0888b53ab8ccaa3f4a38b7d4f16f3cb05b65567ab15353cf24f7acb65b708650cde657db";
 
         // Installation Settings
         string[] args;
@@ -422,7 +422,7 @@ namespace MeshCentralInstaller
                 if (currentNodeVersion != null) { log("currentNodeVersion: " + currentNodeVersion); } else { log("currentNodeVersion: none"); }
 
                 // Check if current version is to old
-                if ((currentNodeVersion != null) && (currentNodeVersion < new Version("10.0.0"))) { displayMessage("Installed NodeJS is too old.", 2, "Uninstall the currently installed NodeJS and try again."); return; }
+                if ((currentNodeVersion != null) && (currentNodeVersion < new Version("16.0.0"))) { displayMessage("Installed NodeJS is too old.", 2, "Uninstall the currently installed NodeJS and try again."); return; }
 
                 // Check if we need to install NodeJS
                 if (currentNodeVersion != null) {
